@@ -44,4 +44,27 @@
         INSERT INTO pokemon_type_map( pokemon_id, type_id, slot )
         VALUES( #{pokemonId}, #{typeId}, #{slot} )
     </insert>
+
+    <insert id="insertPokemonSpecies">
+        INSERT INTO pokemon_species( id, name, sort_order, gender_rate, is_baby, is_legendary, is_mythical, category, generation )
+        VALUES( #{id}, #{name}, #{sortOrder}, #{genderRate}, #{isBaby}, #{isLegendary}, #{isMythical}, #{category}, #{generation} )
+        ON DUPLICATE KEY UPDATE id = id
+    </insert>
+
+    <insert id="insertPokemonDescription">
+        INSERT INTO pokemon_description( version_id, pokemon_species_id, description )
+        VALUES( #{versionId}, #{pokemonSpeciesId}, #{description} )
+        ON DUPLICATE KEY UPDATE id = id
+    </insert>
+
+    <insert id="insertPokemonEggGroup">
+        INSERT INTO pokemon_species_egg_group_map( egg_group_id, pokemon_species_id )
+        VALUES( #{eggGroupId}, #{pokemonSpeciesId} )
+        ON DUPLICATE KEY UPDATE id = id
+    </insert>
+
+    <insert id="insertPokemon">
+        INSERT INTO pokemon( id, pokemon_species_id, sort_order, name, main_artwork_url, main_sprite_url, cries, height, weight, hp, attack, defense, special_attack, special_defense, speed, is_default )
+        VALUES( #{id}, #{pokemonSpeciesId}, #{sortOrder}, #{name}, #{mainArtworkUrl}, #{mainSpriteUrl}, #{cries}, #{height}, #{weight}, #{hp}, #{attack}, #{defense}, #{specialAttack}, #{specialDefense}, #{speed}, #{isDefault} )
+    </insert>
 </mapper>

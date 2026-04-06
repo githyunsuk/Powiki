@@ -1,14 +1,7 @@
 package com.example.powiki.api2db.service;
 
 import com.example.powiki.api2db.mapper.DataIngestionMapper;
-import com.example.powiki.api2db.model.AbilityApiDTO;
-import com.example.powiki.api2db.model.PokemonAbilityMapDTO;
-import com.example.powiki.api2db.model.PokemonDTO;
-import com.example.powiki.api2db.model.PokemonSpriteDTO;
-import com.example.powiki.api2db.model.PokemonTypeMapDTO;
-import com.example.powiki.api2db.model.TypeApiDTO;
-import com.example.powiki.api2db.model.TypeEfficacyDTO;
-import com.example.powiki.api2db.model.VersionApiDTO;
+import com.example.powiki.api2db.model.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -176,6 +169,9 @@ public class DataIngestionServiceImpl implements DataIngestionService {
         }
     }
 
+    /**
+     *  알 그룹 데이터 수집
+     */
     @Override
     public void processEggGroupIngestion() {
 
@@ -205,6 +201,9 @@ public class DataIngestionServiceImpl implements DataIngestionService {
         }
     }
 
+    /**
+     *  특성 데이터 수집
+     */
     @Override
     public void processAbilityIngestion() {
 
@@ -258,6 +257,9 @@ public class DataIngestionServiceImpl implements DataIngestionService {
         }
     }
 
+    /**
+     * 포켓몬 데이터 수집
+     */
     @Override
     public void processPokemonIngestion() {
 
@@ -281,18 +283,113 @@ public class DataIngestionServiceImpl implements DataIngestionService {
 
             PokemonDTO.PokemonDTOBuilder pokemonBuilder = PokemonDTO.builder();
 
-            // 포켓몬 기본 정보
+            // 포켓몬 ID
             Integer id = pokemonResponse.get("id").asInt();
+
+            // Pokemon Sprite 저장
+            String spriteShinyUrl = pokemonResponse.get("sprites").get("front_shiny").asText();
+            String artWorkShinyUrl = pokemonResponse.get("sprites").get("other").get("official-artwork").get("front_shiny").asText();
+            PokemonSpriteDTO pokemonSprite = PokemonSpriteDTO.builder().pokemonId(id).spriteShinyUrl(spriteShinyUrl).artworkShinyUrl(artWorkShinyUrl).build();
+
+            dataIngestionMapper.insertPokemonSprite(pokemonSprite);
+
+
+            // Pokemon Ability 저장
+            for(JsonNode node : pokemonResponse.get("abilities")) {
+                char isHidden = node.get("is_hidden").asBoolean() ? 'Y' : 'N';
+                Integer slot = node.get("slot").asInt();
+                String[] urlParts = node.get("ability").get("url").asText().split("/");
+                Integer abilityId = Integer.parseInt(urlParts[urlParts.length - 1]);
+
+                PokemonAbilityMapDTO pokemonAbility = PokemonAbilityMapDTO.builder()
+                        .abilityId(abilityId).slot(slot).pokemonId(id).isHidden(isHidden).build();
+
+                dataIngestionMapper.insertPokemonAbility(pokemonAbility);
+            }
+
+            // Pokemon Type 저장
+            for(JsonNode node : pokemonResponse.get("types")) {
+                Integer slot = node.get("slot").asInt();
+                String[] urlParts = node.get("type").get("url").asText().split("/");
+                Integer typeId = Integer.parseInt(urlParts[urlParts.length - 1]);
+
+                PokemonTypeMapDTO pokemonType = PokemonTypeMapDTO.builder().pokemonId(id).typeId(typeId).slot(slot).build();
+                dataIngestionMapper.insertPokemonType(pokemonType);
+            }
+
+            // Pokemon Species 저장
+            JsonNode speciesResponse = restClient.get()
+                    .uri(pokemonResponse.get("species").get("url").asText())
+                    .retrieve()
+                    .body(JsonNode.class);
+
+            Integer speciesId = speciesResponse.get("id").asInt();
+            Integer speciesOrder = speciesResponse.get("order").asInt();
+            Integer genderRate = speciesResponse.get("gender_rate").asInt();
+
+            char isBaby = speciesResponse.get("is_baby").asBoolean() ? 'Y' : 'N';
+            char isLegendary = speciesResponse.get("is_legendary").asBoolean() ? 'Y' : 'N';
+            char isMythical = speciesResponse.get("is_mythical").asBoolean() ? 'Y' : 'N';
+
+            String[] urlParts = speciesResponse.get("generation").get("url").asText().split("/");
+            Integer generation = Integer.parseInt(urlParts[urlParts.length - 1]);
+
+            String name = null;
+            for(JsonNode nameNode : speciesResponse.get("names")) {
+                if("ko".equals(nameNode.get("language").get("name").asText())) {
+                    name = nameNode.get("name").asText();
+                }
+            }
+
+            String category = null;
+            for(JsonNode categoryNode : speciesResponse.get("genera")) {
+                if("ko".equals(categoryNode.get("language").get("name").asText())) {
+                    category = categoryNode.get("genus").asText();
+                }
+            }
+
+            PokemonSpeciesDTO pokemonSpecies = PokemonSpeciesDTO.builder()
+                    .id(speciesId).name(name).sortOrder(speciesOrder).genderRate(genderRate)
+                    .isBaby(isBaby).isLegendary(isLegendary).isMythical(isMythical)
+                    .category(category).generation(generation).build();
+
+            dataIngestionMapper.insertPokemonSpecies(pokemonSpecies);
+
+            // Poekemon Description 저장
+            for(JsonNode descriptionNode : speciesResponse.get("flavor_text_entries")) {
+                if("ko".equals(descriptionNode.get("language").get("name").asText())) {
+                    String description = descriptionNode.get("flavor_text").asText();
+                    String[] versionParts = descriptionNode.get("version").get("url").asText().split("/");
+                    Integer versionId = Integer.parseInt(versionParts[versionParts.length - 1]);
+
+                    PokemonDescriptionDTO pokemonDescription = PokemonDescriptionDTO.builder()
+                            .versionId(versionId).description(description).pokemonSpeciesId(speciesId).build();
+
+                    dataIngestionMapper.insertPokemonDescription(pokemonDescription);
+                }
+            }
+
+            // Pokemon Egg group 저장
+            for(JsonNode eggNode : speciesResponse.get("egg_groups")) {
+                String[] eggParts = eggNode.get("url").asText().split("/");
+                Integer eggGroupId = Integer.parseInt(eggParts[eggParts.length - 1]);
+
+                SpeciesEggMap eggGroup = SpeciesEggMap.builder().eggGroupId(eggGroupId).pokemonSpeciesId(speciesId).build();
+                dataIngestionMapper.insertPokemonEggGroup(eggGroup);
+
+            }
+
+            // 포켓몬 기본 정보 저장
             String cries = pokemonResponse.get("cries").get("latest").asText();
             Integer height = pokemonResponse.get("height").asInt();
             Integer weight = pokemonResponse.get("weight").asInt();
-            char isDefault = pokemonResponse.get("is_default").isBoolean() ? 'Y' : 'N';
+            char isDefault = pokemonResponse.get("is_default").asBoolean() ? 'Y' : 'N';
             String mainSpriteUrl = pokemonResponse.get("sprites").get("front_default").asText();
             String mainArtWorkUrl = pokemonResponse.get("sprites").get("other").get("official-artwork").get("front_default").asText();
-            Integer order = pokemonResponse.get("order").asInt();
+            Integer pokemonOrder = pokemonResponse.get("order").asInt();
 
             pokemonBuilder.id(id).cries(cries).height(height).weight(weight).isDefault(isDefault)
-                    .mainSpriteUrl(mainSpriteUrl).mainArtworkUrl(mainArtWorkUrl).sortOrder(order);
+                    .mainSpriteUrl(mainSpriteUrl).mainArtworkUrl(mainArtWorkUrl).sortOrder(pokemonOrder);
 
             // 종족값
             for(JsonNode node : pokemonResponse.get("stats")) {
@@ -309,39 +406,10 @@ public class DataIngestionServiceImpl implements DataIngestionService {
                 }
             }
 
-            // Pokemon Sprite 저장
-            String spriteShinyUrl = pokemonResponse.get("sprites").get("front_shiny").asText();
-            String artWorkShinyUrl = pokemonResponse.get("sprites").get("other").get("official-artwork").get("front_shiny").asText();
-            PokemonSpriteDTO pokemonSprite = PokemonSpriteDTO.builder().pokemonId(id).spriteShinyUrl(spriteShinyUrl).artworkShinyUrl(artWorkShinyUrl).build();
+            pokemonBuilder.pokemonSpeciesId(speciesId).name(name);
+            PokemonDTO pokemon = pokemonBuilder.build();
 
-//            dataIngestionMapper.insertPokemonSprite(pokemonSprite);
-
-
-            // Pokemon Ability 저장
-            for(JsonNode node : pokemonResponse.get("abilities")) {
-                char isHidden = node.get("is_hidden").asBoolean() ? 'Y' : 'N';
-                Integer slot = node.get("slot").asInt();
-                String[] urlParts = node.get("ability").get("url").asText().split("/");
-                Integer abilityId = Integer.parseInt(urlParts[urlParts.length - 1]);
-
-                PokemonAbilityMapDTO pokemonAbility = PokemonAbilityMapDTO.builder()
-                        .abilityId(abilityId).slot(slot).pokemonId(id).isHidden(isHidden).build();
-
-                log.debug("### Pokemon Ability : {}", pokemonAbility);
-//                dataIngestionMapper.insertPokemonAbility(pokemonAbility);
-            }
-
-            // Pokemon Type 저장
-            for(JsonNode node : pokemonResponse.get("types")) {
-                Integer slot = node.get("slot").asInt();
-                String[] urlParts = node.get("type").get("url").asText().split("/");
-                Integer typeId = Integer.parseInt(urlParts[urlParts.length - 1]);
-
-                PokemonTypeMapDTO pokemonType = PokemonTypeMapDTO.builder().pokemonId(id).typeId(typeId).slot(slot).build();
-//                dataIngestionMapper.insertPokemonType(pokemonType);
-            }
-
-            // Pokemon Species 저장
+            dataIngestionMapper.insertPokemon(pokemon);
         }
     }
 
