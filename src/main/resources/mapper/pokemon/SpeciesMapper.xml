@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.powiki.domain.pokemon.mapper.SpeciesMapper">
+
+    <insert id="insertEggGroup">
+        INSERT INTO egg_group( id, name )
+        VALUES( #{id}, #{name} )
+    </insert>
+
+    <insert id="insertPokemonSpecies">
+        INSERT INTO pokemon_species( id, name, sort_order, gender_rate, is_baby, is_legendary, is_mythical, category, generation )
+        VALUES( #{id}, #{name}, #{sortOrder}, #{genderRate}, #{isBaby}, #{isLegendary}, #{isMythical}, #{category}, #{generation} )
+        ON DUPLICATE KEY UPDATE id = id
+    </insert>
+
+    <insert id="insertPokemonDescription">
+        INSERT INTO pokemon_description( version_id, pokemon_species_id, description )
+        VALUES( #{versionId}, #{pokemonSpeciesId}, #{description} )
+        ON DUPLICATE KEY UPDATE id = id
+    </insert>
+
+    <insert id="insertPokemonEggGroup">
+        INSERT INTO pokemon_species_egg_group_map( egg_group_id, pokemon_species_id )
+        VALUES( #{eggGroupId}, #{pokemonSpeciesId} )
+        ON DUPLICATE KEY UPDATE id = id
+    </insert>
+
+</mapper>
