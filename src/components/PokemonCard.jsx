@@ -28,7 +28,7 @@ function PokemonCard({ pokemon }) {
         component="img"
         sx={{ p: 0, backgroundColor: "#f5f5f5", objectFit: "contain" }}
         height="200"
-        image={isPixel ? pokemon.pixel : pokemon.image}
+        // image={isPixel ? pokemon.pixel : pokemon.image}
         alt={pokemon.name}
       />
       <CardContent

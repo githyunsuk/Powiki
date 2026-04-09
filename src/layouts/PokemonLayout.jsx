@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Typography, Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import SearchBar from "../components/SearchBar";
 import Header from "../components/Header";
 import { fetchPokemonList } from "../api/pokemonApi";
 import Loading from "../components/Loading";
