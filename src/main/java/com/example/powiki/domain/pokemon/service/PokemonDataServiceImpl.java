@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
 @Service
@@ -29,6 +30,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
      *  알 그룹 데이터 수집
      */
     @Override
+    @Transactional(timeout = 600)
     public void processEggGroupIngestion() {
 
         JsonNode totalResponse = restClient.get()
@@ -61,6 +63,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
      * 포켓몬 데이터 수집
      */
     @Override
+    @Transactional(timeout = 600)
     public void processPokemonIngestion() {
 
         JsonNode countResponse = restClient.get()

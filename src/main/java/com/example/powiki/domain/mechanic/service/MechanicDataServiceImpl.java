@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
 @Service
@@ -26,6 +27,7 @@ public class MechanicDataServiceImpl implements MechanicDataService {
      *  특성 데이터 수집
      */
     @Override
+    @Transactional(timeout = 600)
     public void processAbilityIngestion() {
 
         JsonNode countResponse = restClient.get()
@@ -82,6 +84,7 @@ public class MechanicDataServiceImpl implements MechanicDataService {
      *  타입 데이터 수집
      */
     @Override
+    @Transactional(timeout = 600)
     public void processTypeIngestion() {
 
         JsonNode countResponse = restClient.get()
