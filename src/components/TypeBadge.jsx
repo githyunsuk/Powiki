@@ -1,15 +1,11 @@
 import { Chip } from "@mui/material";
-import { pokemonTypes } from "../constants/pokemon";
 
 function TypeBadge({type}) {
-  const englishType = type.type.name;
-  const koreanType = pokemonTypes[englishType].label;
-  const color = pokemonTypes[englishType].color;
-
+ 
   return (
     <Chip
-      key={englishType}
-      label={koreanType}
+      key={type.typeName}
+      label={type.typeName}
       size="small"
       sx={{
         width: "60px",
@@ -17,7 +13,7 @@ function TypeBadge({type}) {
         fontSize: "0.75rem",
         fontWeight: "bold",
         color: "white",
-        backgroundColor: color,
+        backgroundColor: type.typeColor,
 
         border: "none",
         height: "24px",

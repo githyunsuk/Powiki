@@ -2,8 +2,8 @@ import { Box, CircularProgress, Typography, Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
-import { fetchPokemonList } from "../api/pokemonApi";
 import Loading from "../components/Loading";
+import api from "../api/axiosInstance";
 
 function PokemonLayout() {
   const [pokemonData, setPokemonData] = useState([]);
@@ -15,19 +15,19 @@ function PokemonLayout() {
 
   //포켓몬 데이터 가져오기
   useEffect(() => {
-    const getPokemons = async () => {
-      try {
-        const data = await fetchPokemonList(currentGen);
-        setPokemonData(data);
-      } catch (error) {
-        console.error("포켓몬을 불러오는데 실패했습니다. " + error);
+    const getPokemonList = async () => {
+      try{
+        const response = await api.get("/api/pokemons");
+        setPokemonData(response.data.data);
+      } catch(error) {
+        console.error("포켓몬 리스트 데이터 불러오기 실패:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    getPokemons();
-  }, [currentGen]);
+    getPokemonList();
+  }, []);
 
   const togglePixel = () => {
     setIsPixel((prev) => !prev);

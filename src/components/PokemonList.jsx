@@ -3,15 +3,14 @@ import PokemonCard from "./PokemonCard";
 import { useOutletContext } from "react-router-dom";
 
 function PokemonList() {
-  const { pokemonData, keyword, selectedTypes } = useOutletContext();
+  const { pokemonData, keyword, selectedTypes, currentGen } = useOutletContext();
 
   const filteredData = pokemonData.filter((pokemon) => {
+    const matchesGen = currentGen === 0 || pokemon.generation === currentGen;
     const matchesKeyword = pokemon.name.includes(keyword);
-    const matchesType =
-      selectedTypes.length === 0 ||
-      pokemon.types.some((types) => selectedTypes.includes(types.type.name));
+    const matchesType = selectedTypes.length === 0 || pokemon.types.some((types) => selectedTypes.includes(types.typeId));
 
-    return matchesKeyword && matchesType;
+    return matchesGen && matchesKeyword && matchesType;
   });
 
   if (filteredData.length === 0) {
