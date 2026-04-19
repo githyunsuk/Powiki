@@ -2,7 +2,6 @@ package com.example.powiki.domain.mechanic.controller;
 
 import com.example.powiki.domain.mechanic.model.response.TypeSummaryResponse;
 import com.example.powiki.global.response.ApiResponse;
-import com.example.powiki.domain.mechanic.model.TypeDTO;
 import com.example.powiki.domain.mechanic.service.TypeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +24,8 @@ public class TypeController {
     @GetMapping("/api/types")
     public ResponseEntity<ApiResponse<List<TypeSummaryResponse>>> retrieveAllTypes() {
 
-        List<TypeSummaryResponse> types = typeService.selectAllTypes();
+        List<TypeSummaryResponse> result = typeService.selectAllTypes();
 
-        return ApiResponse.success(types);
+        return ApiResponse.success(result);
     }
 }

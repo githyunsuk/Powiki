@@ -13,14 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class TypeDTO {
+public class TypeEfficacy {
 
-    private Integer id;
-    private Integer generation;
-    private String name;
-    private String sprite;
+    private Integer damageTypeId;
+    private Integer targetTypeId;
+    private double damageFactor;
 
-    private String isActive;
+    private char isActive;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

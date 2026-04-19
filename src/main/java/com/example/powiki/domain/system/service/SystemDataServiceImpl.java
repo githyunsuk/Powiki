@@ -1,7 +1,7 @@
 package com.example.powiki.domain.system.service;
 
 import com.example.powiki.domain.system.mapper.VersionMapper;
-import com.example.powiki.domain.system.model.VersionDTO;
+import com.example.powiki.domain.system.model.Version;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,7 +76,7 @@ public class SystemDataServiceImpl implements SystemDataService {
                 }
             }
 
-            VersionDTO versionApi = VersionDTO.builder().id(id).name(name).region(region).generation(generation).build();
+            Version versionApi = Version.builder().id(id).name(name).region(region).generation(generation).build();
             log.debug("### versionApi : {}", versionApi);
             versionMapper.insertVersion(versionApi);
         }

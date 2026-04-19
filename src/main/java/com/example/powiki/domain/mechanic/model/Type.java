@@ -1,4 +1,4 @@
-package com.example.powiki.domain.pokemon.model;
+package com.example.powiki.domain.mechanic.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,17 +13,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class PokemonAbilityMapDTO {
+public class Type {
 
     private Integer id;
-    private Integer pokemonId;
-    private Integer abilityId;
-    private String pokemonName;
-    private String abilityName;
-    private Integer slot;
-    private char isHidden;
+    private Integer generation;
+    private String name;
+    private String sprite;
 
-    private char isActive;
+    private String isActive;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -2,12 +2,12 @@ package com.example.powiki.domain.pokemon.service;
 
 import com.example.powiki.domain.pokemon.mapper.PokemonMapper;
 import com.example.powiki.domain.pokemon.mapper.SpeciesMapper;
-import com.example.powiki.domain.pokemon.model.PokemonAbilityMapDTO;
-import com.example.powiki.domain.pokemon.model.PokemonDTO;
-import com.example.powiki.domain.pokemon.model.PokemonDescriptionDTO;
-import com.example.powiki.domain.pokemon.model.PokemonSpeciesDTO;
-import com.example.powiki.domain.pokemon.model.PokemonSpriteDTO;
-import com.example.powiki.domain.pokemon.model.PokemonTypeMapDTO;
+import com.example.powiki.domain.pokemon.model.PokemonAbilityMap;
+import com.example.powiki.domain.pokemon.model.Pokemon;
+import com.example.powiki.domain.pokemon.model.PokemonDescription;
+import com.example.powiki.domain.pokemon.model.PokemonSpecies;
+import com.example.powiki.domain.pokemon.model.PokemonSprite;
+import com.example.powiki.domain.pokemon.model.PokemonTypeMap;
 import com.example.powiki.domain.pokemon.model.SpeciesEggMap;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
@@ -84,7 +84,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
                     .retrieve()
                     .body(JsonNode.class);
 
-            PokemonDTO.PokemonDTOBuilder pokemonBuilder = PokemonDTO.builder();
+            Pokemon.PokemonBuilder pokemonBuilder = Pokemon.builder();
 
             // 포켓몬 ID
             Integer id = pokemonResponse.get("id").asInt();
@@ -92,7 +92,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
             // Pokemon Sprite 저장
             String spriteShinyUrl = pokemonResponse.get("sprites").get("front_shiny").asText();
             String artWorkShinyUrl = pokemonResponse.get("sprites").get("other").get("official-artwork").get("front_shiny").asText();
-            PokemonSpriteDTO pokemonSprite = PokemonSpriteDTO.builder().pokemonId(id).spriteShinyUrl(spriteShinyUrl).artworkShinyUrl(artWorkShinyUrl).build();
+            PokemonSprite pokemonSprite = PokemonSprite.builder().pokemonId(id).spriteShinyUrl(spriteShinyUrl).artworkShinyUrl(artWorkShinyUrl).build();
 
             pokemonMapper.insertPokemonSprite(pokemonSprite);
 
@@ -104,7 +104,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
                 String[] urlParts = node.get("ability").get("url").asText().split("/");
                 Integer abilityId = Integer.parseInt(urlParts[urlParts.length - 1]);
 
-                PokemonAbilityMapDTO pokemonAbility = PokemonAbilityMapDTO.builder()
+                PokemonAbilityMap pokemonAbility = PokemonAbilityMap.builder()
                         .abilityId(abilityId).slot(slot).pokemonId(id).isHidden(isHidden).build();
 
                 pokemonMapper.insertPokemonAbility(pokemonAbility);
@@ -116,7 +116,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
                 String[] urlParts = node.get("type").get("url").asText().split("/");
                 Integer typeId = Integer.parseInt(urlParts[urlParts.length - 1]);
 
-                PokemonTypeMapDTO pokemonType = PokemonTypeMapDTO.builder().pokemonId(id).typeId(typeId).slot(slot).build();
+                PokemonTypeMap pokemonType = PokemonTypeMap.builder().pokemonId(id).typeId(typeId).slot(slot).build();
                 pokemonMapper.insertPokemonType(pokemonType);
             }
 
@@ -151,7 +151,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
                 }
             }
 
-            PokemonSpeciesDTO pokemonSpecies = PokemonSpeciesDTO.builder()
+            PokemonSpecies pokemonSpecies = PokemonSpecies.builder()
                     .id(speciesId).name(name).sortOrder(speciesOrder).genderRate(genderRate)
                     .isBaby(isBaby).isLegendary(isLegendary).isMythical(isMythical)
                     .category(category).generation(generation).build();
@@ -165,7 +165,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
                     String[] versionParts = descriptionNode.get("version").get("url").asText().split("/");
                     Integer versionId = Integer.parseInt(versionParts[versionParts.length - 1]);
 
-                    PokemonDescriptionDTO pokemonDescription = PokemonDescriptionDTO.builder()
+                    PokemonDescription pokemonDescription = PokemonDescription.builder()
                             .versionId(versionId).description(description).pokemonSpeciesId(speciesId).build();
 
                     speciesMapper.insertPokemonDescription(pokemonDescription);
@@ -210,7 +210,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
             }
 
             pokemonBuilder.pokemonSpeciesId(speciesId).name(name);
-            PokemonDTO pokemon = pokemonBuilder.build();
+            Pokemon pokemon = pokemonBuilder.build();
 
             pokemonMapper.insertPokemon(pokemon);
         }

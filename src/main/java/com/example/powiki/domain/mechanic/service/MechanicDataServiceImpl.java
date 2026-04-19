@@ -3,9 +3,9 @@ package com.example.powiki.domain.mechanic.service;
 
 import com.example.powiki.domain.mechanic.mapper.AbilityMapper;
 import com.example.powiki.domain.mechanic.mapper.TypeMapper;
-import com.example.powiki.domain.mechanic.model.AbilityDTO;
-import com.example.powiki.domain.mechanic.model.TypeDTO;
-import com.example.powiki.domain.mechanic.model.TypeEfficacyDTO;
+import com.example.powiki.domain.mechanic.model.Ability;
+import com.example.powiki.domain.mechanic.model.Type;
+import com.example.powiki.domain.mechanic.model.TypeEfficacy;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +74,7 @@ public class MechanicDataServiceImpl implements MechanicDataService {
                 isMainSeries = 'N';
             }
 
-            AbilityDTO ability = AbilityDTO.builder().id(id).description(description).name(name).generation(generation).isMainSeries(isMainSeries).build();
+            Ability ability = Ability.builder().id(id).description(description).name(name).generation(generation).isMainSeries(isMainSeries).build();
             abilityMapper.ingestAbility(ability);
 
         }
@@ -126,7 +126,7 @@ public class MechanicDataServiceImpl implements MechanicDataService {
             String sprite = response.get("sprites").get("generation-ix").get("scarlet-violet").get("symbol_icon").asText();
 
             // 타입 저장
-            TypeDTO typeApi = TypeDTO.builder().generation(generation).id(id).name(name).sprite(sprite).build();
+            Type typeApi = Type.builder().generation(generation).id(id).name(name).sprite(sprite).build();
             log.debug("### typeApi: {}", typeApi);
             typeMapper.insertType(typeApi);
 
@@ -152,11 +152,11 @@ public class MechanicDataServiceImpl implements MechanicDataService {
             String[] urlParts = node.get("url").asText().split("/");
             Integer otherTypeId = Integer.parseInt(urlParts[urlParts.length-1]);
 
-            TypeEfficacyDTO typeEfficacy;
+            TypeEfficacy typeEfficacy;
             if(isFrom) {
-                typeEfficacy = TypeEfficacyDTO.builder().targetTypeId(typeId).damageTypeId(otherTypeId).damageFactor(damageFactor).build();
+                typeEfficacy = TypeEfficacy.builder().targetTypeId(typeId).damageTypeId(otherTypeId).damageFactor(damageFactor).build();
             } else {
-                typeEfficacy = TypeEfficacyDTO.builder().targetTypeId(otherTypeId).damageTypeId(typeId).damageFactor(damageFactor).build();
+                typeEfficacy = TypeEfficacy.builder().targetTypeId(otherTypeId).damageTypeId(typeId).damageFactor(damageFactor).build();
             }
 
             typeMapper.insertTypeEfficacy(typeEfficacy);

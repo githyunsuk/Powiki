@@ -93,4 +93,45 @@
         )
     </insert>
 
+    <!-- Pokemon 리스트 -->
+    <resultMap id="pokemonListResponse" type="com.example.powiki.domain.pokemon.model.response.PokemonListResponse">
+        <id property="id" column="id" />
+        <result property="mainArtworkUrl" column="main_artwork_url"/>
+        <result property="mainSpriteUrl" column="main_sprite_url" />
+        <result property="name" column="name" />
+        <result property="generation" column="generation" />
+
+        <collection property="types" ofType="com.example.powiki.domain.pokemon.model.response.PokemonListResponse$pokemonType">
+            <id property="typeId" column="type_id" />
+            <result property="slot" column="slot" />
+            <result property="typeName" column="type_name" />
+            <result property="typeColor" column="type_color" />
+        </collection>
+    </resultMap>
+
+    <select id="selectPokemonList" resultMap="pokemonListResponse">
+        SELECT
+             p.id
+            ,p.main_artwork_url
+            ,p.main_sprite_url
+            ,p.name
+            ,ps.generation
+            ,t.id as type_id
+            ,ptm.slot
+            ,t.name as type_name
+            ,t.color as type_color
+        FROM
+            pokemon p
+        JOIN
+            pokemon_species ps ON p.pokemon_species_id = ps.id
+        JOIN
+            pokemon_type_map ptm ON p.id = ptm.pokemon_id
+        JOIN
+            type t ON t.id = ptm.type_id
+        WHERE
+            p.is_active = 'Y'
+        AND
+            p.is_default = 'Y'
+    </select>
+
 </mapper>

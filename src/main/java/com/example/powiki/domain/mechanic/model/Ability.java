@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class AbilityDTO {
+public class Ability {
 
     private Integer id;
     private String name;

@@ -1,13 +1,11 @@
 package com.example.powiki.domain.mechanic.service;
 
 import com.example.powiki.domain.mechanic.mapper.TypeMapper;
-import com.example.powiki.domain.mechanic.model.TypeDTO;
 import com.example.powiki.domain.mechanic.model.response.TypeSummaryResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

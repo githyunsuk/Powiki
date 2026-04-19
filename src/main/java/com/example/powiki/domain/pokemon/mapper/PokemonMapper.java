@@ -1,19 +1,24 @@
 package com.example.powiki.domain.pokemon.mapper;
 
-import com.example.powiki.domain.pokemon.model.PokemonAbilityMapDTO;
-import com.example.powiki.domain.pokemon.model.PokemonDTO;
-import com.example.powiki.domain.pokemon.model.PokemonSpriteDTO;
-import com.example.powiki.domain.pokemon.model.PokemonTypeMapDTO;
+import com.example.powiki.domain.pokemon.model.PokemonAbilityMap;
+import com.example.powiki.domain.pokemon.model.Pokemon;
+import com.example.powiki.domain.pokemon.model.PokemonSprite;
+import com.example.powiki.domain.pokemon.model.PokemonTypeMap;
+import com.example.powiki.domain.pokemon.model.response.PokemonListResponse;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface PokemonMapper {
 
-    void insertPokemonAbility(PokemonAbilityMapDTO pokemonAbility);
+    void insertPokemonAbility(PokemonAbilityMap pokemonAbility);
 
-    void insertPokemonSprite(PokemonSpriteDTO pokemonSprite);
+    void insertPokemonSprite(PokemonSprite pokemonSprite);
 
-    void insertPokemonType(PokemonTypeMapDTO pokemonType);
+    void insertPokemonType(PokemonTypeMap pokemonType);
 
-    void insertPokemon(PokemonDTO pokemon);
+    void insertPokemon(Pokemon pokemon);
+
+    List<PokemonListResponse> selectPokemonList();
 }

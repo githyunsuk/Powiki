@@ -1,6 +1,5 @@
 package com.example.powiki.domain.mechanic.service;
 
-import com.example.powiki.domain.mechanic.model.TypeDTO;
 import com.example.powiki.domain.mechanic.model.response.TypeSummaryResponse;
 
 import java.util.List;

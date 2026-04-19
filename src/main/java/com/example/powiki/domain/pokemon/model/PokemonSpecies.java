@@ -1,4 +1,4 @@
-package com.example.powiki.domain.mechanic.model;
+package com.example.powiki.domain.pokemon.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,13 +13,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class TypeEfficacyDTO {
+public class PokemonSpecies {
 
-    private Integer damageTypeId;
-    private Integer targetTypeId;
-    private double damageFactor;
+    private Integer id;
+    private String name;
+    private Integer sortOrder;
+    private Integer genderRate;
+    private char isBaby;
+    private char isLegendary;
+    private char isMythical;
+    private String category;
+    private Integer generation;
 
     private char isActive;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }

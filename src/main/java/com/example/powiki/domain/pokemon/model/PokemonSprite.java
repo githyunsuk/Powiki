@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class PokemonSpriteDTO {
+public class PokemonSprite {
 
     private Integer id;
     private Integer pokemonId;
