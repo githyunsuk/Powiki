@@ -7,13 +7,22 @@ import {
 } from "@mui/material";
 import TypeBadge from "./TypeBadge";
 import { useOutletContext } from "react-router-dom";
+import { getPokemonCries, getPokemonImageUrl } from "../utils/pokemonHelper";
 
 function PokemonCard({ pokemon }) {
 
-  const { isPixel } = useOutletContext();
+  const { imageType } = useOutletContext();
+  const imageUrl = getPokemonImageUrl(pokemon.id, imageType);
+
+  const playCry = (id) => {
+    const audio = getPokemonCries(id);
+    audio.volume = 0.5; 
+    audio.play();
+  };
   
   return (
     <Card
+      onClick={() => playCry(pokemon.id)}
       sx={{
         height: "100%",
         display: "flex",
@@ -28,14 +37,14 @@ function PokemonCard({ pokemon }) {
         component="img"
         sx={{ p: 0, backgroundColor: "#f5f5f5", objectFit: "contain" }}
         height="200"
-        image={isPixel ? pokemon.mainSpriteUrl : pokemon.mainArtworkUrl}
+        image={imageUrl}
         alt={pokemon.name}
       />
       <CardContent
         sx={{ flexGrow: 1, textAlign: "center", pb: "16px !important" }}
       >
         <Typography variant="caption" color="text.secondary">
-          No.{String(pokemon.id).padStart(4, "0")}
+          No.{String(pokemon.pokemonSpeciesId).padStart(4, "0")}
         </Typography>
         <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
           {pokemon.name}

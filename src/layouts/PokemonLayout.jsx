@@ -11,13 +11,15 @@ function PokemonLayout() {
   const [isPixel, setIsPixel] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [selectedTypes, setSelectedTypes] = useState([]);
-  const [currentGen, setCurrentGen] = useState(1);
+  const [currentGen, setCurrentGen] = useState(0);
+  const [formType, setFormType] = useState("default");
+  const [imageType, setImageType] = useState("ARTWORK");
 
   //포켓몬 데이터 가져오기
   useEffect(() => {
     const getPokemonList = async () => {
       try{
-        const response = await api.get("/api/pokemons");
+        const response = await api.get(`/api/pokemons/${formType}`);
         setPokemonData(response.data.data);
       } catch(error) {
         console.error("포켓몬 리스트 데이터 불러오기 실패:", error);
@@ -27,10 +29,12 @@ function PokemonLayout() {
     };
 
     getPokemonList();
-  }, []);
+  }, [formType]);
 
   const togglePixel = () => {
-    setIsPixel((prev) => !prev);
+    const nextValue = !isPixel;
+    setIsPixel(nextValue);
+    handleImageType(nextValue ? "PIXEL" : "ARTWORK");
   };
 
   const handleKeyword = (value) => {
@@ -47,6 +51,14 @@ function PokemonLayout() {
     setCurrentGen(gen);
   }
 
+  const handleFormType = (value) => {
+    setFormType(value);
+  }
+
+  const handleImageType = (value) => {
+    setImageType(value);
+  }
+
   //로딩 시 로딩 바
   if (loading) {
     return <Loading />;
@@ -54,7 +66,7 @@ function PokemonLayout() {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Header isPixel={isPixel} togglePixel={togglePixel} keyword={keyword} handleKeyword={handleKeyword} />
-      <Outlet context={{ pokemonData, isPixel, keyword, selectedTypes, handleType, currentGen, handleGen }} />
+      <Outlet context={{ pokemonData, isPixel, keyword, selectedTypes, handleType, currentGen, handleGen, formType, handleFormType, imageType}} />
     </Container>
   );
 }

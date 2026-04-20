@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 function GenFilter() {
 
   const { currentGen, handleGen } = useOutletContext();
-  const GENERATIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const GENERATIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
     <Paper
@@ -39,7 +39,7 @@ function GenFilter() {
           gridTemplateColumns: {
             xs: "repeat(3, 1fr)",
             sm: "repeat(5, 1fr)",
-            md: "repeat(9, 1fr)",
+            md: "repeat(10, 1fr)",
           },
           gap: 1,
         }}
@@ -51,7 +51,7 @@ function GenFilter() {
               key={gen}
               value={gen}
               control={<Radio sx={{ display: "none" }} />} 
-              label={`${gen}세대`}
+              label={gen === 0 ? "전체" : `${gen}세대`}
               sx={{
                 margin: 0,
                 height: "36px",

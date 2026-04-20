@@ -1,32 +1,9 @@
-export const pokemonTypes = {
-  grass: { label: "풀", color: "#66A945" },
-  poison: { label: "독", color: "#735198" },
-  fire: { label: "불꽃", color: "#E56C3E" },
-  water: { label: "물", color: "#5185C5" },
-  bug: { label: "벌레", color: "#9FA244" },
-  normal: { label: "노말", color: "#949495" },
-  flying: { label: "비행", color: "#A2C3E7" },
-  electric: { label: "전기", color: "#FBB917" },
-  ground: { label: "땅", color: "#9C7743" },
-  fairy: { label: "페어리", color: "#DAB4D4" },
-  fighting: { label: "격투", color: "#E09C40" },
-  psychic: { label: "에스퍼", color: "#DD6B7B" },
-  rock: { label: "바위", color: "#BFB889" },
-  steel: { label: "강철", color: "#69A9C7" },
-  ice: { label: "얼음", color: "#6DC8EB" },
-  ghost: { label: "고스트", color: "#684870" },
-  dragon: { label: "드래곤", color: "#535CA8" },
-  dark: { label: "악", color: "#4C4948" },
+export const POKEMON_ASSETS = {
+  ARTWORK : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/",
+  PIXEL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/",
+  CRY: "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/",
+  PIXEL_SHINY: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny",
+  ARTWORK_SHINY: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/",
 };
 
-export const generation = {
-  1: {start:1, end:151 },
-  2: {start:152, end:251 },
-  3: {start:252, end:386 },
-  4: {start:387, end: 493 },
-  5: {start:494, end: 649 },
-  6: {start:650, end: 721},
-  7: {start:722, end: 809 },
-  8: {start:810, end: 905 },
-  9: {start:906, end: 1025},
-}
+export const GENERATIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
