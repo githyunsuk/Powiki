@@ -57,7 +57,7 @@ const renderCustomTick = (props) => {
 
       <Box sx={{ flexGrow: 1, minHeight: "320px" }}> 
         <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="75%" data={chartData}> 
+          <RadarChart cx="50%" cy="50%" outerRadius="85%" data={chartData}> 
             <PolarGrid stroke="#e2e8f0" />
             
             <PolarAngleAxis 

@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api/axiosInstance";
 import Loading from "../components/common/Loading";
+import NavButton from "../components/common/NavButton";
 
 function PokemonDetail() {
   const [pokemon, setPokemon] = useState(null);
@@ -38,6 +39,7 @@ function PokemonDetail() {
   const gender = pokemon.gender.genderless ? "무성" : `수컷: ${pokemon.gender.male}%, 암컷: ${pokemon.gender.female}%`;
   
   return (
+    <>
     <Container maxWidth="md" sx={{ pt: 2, pb: 5, bgcolor: "#fcfcfc" }}>
 
       <Paper 
@@ -147,6 +149,11 @@ function PokemonDetail() {
       </Box>
 
     </Container>
+
+    {/* 7. 페이지 이동 버튼*/}
+    <NavButton pokemon={pokemon.prev} color={ACCENT_COLOR} direction='left'/>
+    <NavButton pokemon={pokemon.next} color={ACCENT_COLOR} direction='right'/>
+    </>
   );
 }
 
