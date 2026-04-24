@@ -23,7 +23,8 @@ function PokemonCard({ pokemon }) {
     <Card
       onClick={handleClick}
       sx={{
-        height: "100%",
+        width: "100%",      // 가로 고정
+    height: "380px",
         display: "flex",
         flexDirection: "column",
         borderRadius: 3,
@@ -45,7 +46,18 @@ function PokemonCard({ pokemon }) {
         <Typography variant="caption" color="text.secondary">
           No.{String(pokemon.pokemonSpeciesId).padStart(4, "0")}
         </Typography>
-        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
+        <Typography 
+          sx={{ 
+            fontWeight: "bold", 
+            mb: 1,
+            fontSize: pokemon.name.length > 10 ? "0.9rem" : "1.25rem",
+            lineHeight: 1.2,
+            height: "2.4em", 
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
           {pokemon.name}
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "center", gap: 0.5 }}>

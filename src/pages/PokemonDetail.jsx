@@ -99,7 +99,7 @@ function PokemonDetail() {
         <SectionTitle label="기본 정보" color={ACCENT_COLOR}/>
 
         <Paper elevation={0} sx={{ borderRadius: "15px", overflow: "hidden", border: `1px solid ${ACCENT_COLOR}`, display: "flex" }}>
-          <InfoColumn label="포켓몬" value={`${pokemon.id} ${pokemon.name}`} color={ACCENT_COLOR} />
+          <InfoColumn label="포켓몬" value={`${String(pokemon.pokemonSpeciesId).padStart(4, "0")} ${pokemon.name}`} color={ACCENT_COLOR} />
           <InfoColumn label="분류" value={pokemon.category} color={ACCENT_COLOR} />
           <InfoColumn label="타입" color={ACCENT_COLOR}>
             <Stack spacing={0.5} alignItems="center">
