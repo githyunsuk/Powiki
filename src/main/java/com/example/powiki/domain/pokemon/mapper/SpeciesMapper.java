@@ -21,5 +21,5 @@ public interface SpeciesMapper {
 
     List<String> selectPokemonEggGroupNames(Long pokemonSpeciesId);
 
-    String selectPokemonDescriptionInfo(Long pokemonSpeciesId);
+    String selectPokemonDescriptionInfo(Long pokemonId);
 }

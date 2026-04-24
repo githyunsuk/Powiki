@@ -130,8 +130,19 @@
             type t ON t.id = ptm.type_id
         WHERE
             p.is_active = 'Y'
-        AND
-            p.form_type = #{formType}
+        <choose>
+            <when test="formType == 'legendary'">
+                AND ps.is_legendary = 'Y'
+                AND p.form_type = 'default'
+            </when>
+            <when test="formType == 'mythical'">
+                AND ps.is_mythical = 'Y'
+                AND p.form_type = 'default'
+            </when>
+            <otherwise>
+                AND p.form_type = #{formType}
+            </otherwise>
+        </choose>
         ORDER BY
             p.pokemon_species_id
     </select>

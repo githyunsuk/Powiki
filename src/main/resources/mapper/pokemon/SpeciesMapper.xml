@@ -48,7 +48,7 @@
         FROM
             pokemon_description pd
         WHERE
-            pd.pokemon_species_id = #{pokemonSpeciesId}
+            pd.pokemon_id = #{pokemonId}
         ORDER BY
             pd.version_id ASC
         LIMIT 1;

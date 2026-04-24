@@ -84,7 +84,7 @@ public class PokemonServiceImpl implements PokemonService {
         // 알 그룹 및 도감 정보
         Long speciesId = basic.getPokemonSpeciesId();
         List<String> eggGroups = speciesMapper.selectPokemonEggGroupNames(speciesId);
-        String description = speciesMapper.selectPokemonDescriptionInfo(speciesId);
+        String description = speciesMapper.selectPokemonDescriptionInfo(pokemonId);
 
         // 응답 객체 조립
         PokemonDetailResponse result = PokemonDetailResponse.builder().
