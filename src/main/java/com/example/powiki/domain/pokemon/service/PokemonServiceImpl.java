@@ -32,9 +32,9 @@ public class PokemonServiceImpl implements PokemonService {
      * 모든 포켓몬 리스트 조회
      */
     @Override
-    public List<PokemonListResponse> retrievePokemonList(String formType) {
+    public List<PokemonListResponse> retrievePokemonList() {
 
-        return pokemonMapper.selectPokemonList(formType);
+        return pokemonMapper.selectPokemonList();
     }
 
     /**

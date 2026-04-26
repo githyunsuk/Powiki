@@ -12,6 +12,9 @@ public class PokemonListResponse {
     private Integer pokemonSpeciesId;
     private String name;
     private Integer generation;
+    private String formType;
+    private boolean isLegendary;
+    private boolean isMythical;
     private List<pokemonType> types;
 
     @Getter

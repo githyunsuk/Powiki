@@ -23,11 +23,11 @@ public class PokemonController {
     /**
      * 모든 포켓몬 리스트 조회
      */
-    @GetMapping("/api/pokemons/{formType}")
-    public ResponseEntity<ApiResponse<List<PokemonListResponse>>> retrievePokemonList(@PathVariable("formType") String formType) {
+    @GetMapping("/api/pokemons")
+    public ResponseEntity<ApiResponse<List<PokemonListResponse>>> retrievePokemonList() {
 
         log.info("### 포켓몬 리스트 조회 시작");
-        List<PokemonListResponse> result = pokemonService.retrievePokemonList(formType);
+        List<PokemonListResponse> result = pokemonService.retrievePokemonList();
 
         return ApiResponse.success(result);
     }

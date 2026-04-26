@@ -24,7 +24,7 @@ public interface PokemonMapper {
 
     void insertPokemon(Pokemon pokemon);
 
-    List<PokemonListResponse> selectPokemonList(String formType);
+    List<PokemonListResponse> selectPokemonList();
 
     PokemonBasicInfoDTO selectPokemonBasicInfo(Long id);
 

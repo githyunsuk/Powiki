@@ -101,6 +101,9 @@
         <result property="mainSpriteUrl" column="main_sprite_url" />
         <result property="name" column="name" />
         <result property="generation" column="generation" />
+        <result property="formType" column="form_type"  />
+        <result property="isLegendary" column="is_legendary" />
+        <result property="isMythical" column="is_mythical" />
 
         <collection property="types" ofType="com.example.powiki.domain.pokemon.model.response.PokemonListResponse$pokemonType">
             <id property="typeId" column="type_id" />
@@ -120,6 +123,9 @@
             ,ptm.slot
             ,t.name as type_name
             ,t.color as type_color
+            ,p.form_type
+            ,CASE WHEN ps.is_legendary = 'Y' THEN 1 ELSE 0 END AS is_legendary
+            ,CASE WHEN ps.is_mythical = 'Y' THEN 1 ELSE 0 END AS is_mythical
         FROM
             pokemon p
         JOIN
@@ -130,21 +136,8 @@
             type t ON t.id = ptm.type_id
         WHERE
             p.is_active = 'Y'
-        <choose>
-            <when test="formType == 'legendary'">
-                AND ps.is_legendary = 'Y'
-                AND p.form_type = 'default'
-            </when>
-            <when test="formType == 'mythical'">
-                AND ps.is_mythical = 'Y'
-                AND p.form_type = 'default'
-            </when>
-            <otherwise>
-                AND p.form_type = #{formType}
-            </otherwise>
-        </choose>
         ORDER BY
-            p.pokemon_species_id
+            p.pokemon_species_id, p.id, ptm.slot
     </select>
 
     <!-- 포켓몬 기본정보 -->
