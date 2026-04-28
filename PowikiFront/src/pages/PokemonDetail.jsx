@@ -36,7 +36,6 @@ function PokemonDetail() {
 
   const ACCENT_COLOR = pokemon.types.find(type => type.slot === 1).color;
   const pokemonImage = getPokemonImageUrl(pokemon.id, "ARTWORK");
-  const pixelImage = getPokemonImageUrl(pokemon.id, "PIXEL" );
   const gender = pokemon.gender.genderless ? "무성" : `수컷: ${pokemon.gender.male}%, 암컷: ${pokemon.gender.female}%`;
   
   return (
