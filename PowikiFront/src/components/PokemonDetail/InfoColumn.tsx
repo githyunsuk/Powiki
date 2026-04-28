@@ -1,6 +1,15 @@
 import { Box, Typography } from "@mui/material";
+import { ReactNode } from "react";
 
-function InfoColumn({ label, value, color, isLast, children }) {
+interface InfoColumnProps {
+  label: string;
+  value?: string;
+  color: string;
+  isLast?: boolean;        
+  children?: ReactNode;    
+}
+
+function InfoColumn({ label, value, color, isLast, children }: InfoColumnProps) {
 
   return(
     <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, borderRight: isLast ? "none" : "1px solid #edf2f7" }}>

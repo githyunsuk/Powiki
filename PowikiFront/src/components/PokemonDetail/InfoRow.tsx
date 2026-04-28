@@ -1,6 +1,15 @@
 import { Box, Stack, Typography, Divider } from "@mui/material";
+import { ReactNode } from "react";
 
-function InfoRow({ label, value, color, isLast, children }) {
+interface InfoColumnProps {
+  label: string;
+  value?: string;
+  color: string;
+  isLast?: boolean;        
+  children?: ReactNode;    
+}
+
+function InfoRow({ label, value, color, isLast, children }: InfoColumnProps) {
   return (
     <Box>
       <Stack direction={{ xs: "column", sm: "row" }}>

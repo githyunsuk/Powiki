@@ -3,11 +3,16 @@ import { POKEMON_ASSETS } from "../../constants/pokemon";
 import { Box, Stack, Typography } from "@mui/material";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
-function AudioPlayer({ pokemonId, accentColor }) {
+interface AudioPlayerProps {
+  pokemonId: number,
+  accentColor: string
+}
 
-  const audioRef = useRef(null);
+function AudioPlayer({ pokemonId, accentColor }: AudioPlayerProps) {
+
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [progress, setProgress] = useState(0);
-  const crySource = `${POKEMON_ASSETS.CRY}${parseInt(pokemonId)}.ogg`
+  const crySource = `${POKEMON_ASSETS.CRY}${pokemonId}.ogg`
 
   // 언마운트 및 페이지 이동시 오디오 초기화
   useEffect(() => {
@@ -31,10 +36,12 @@ function AudioPlayer({ pokemonId, accentColor }) {
   };
 
   const handleTimeUpdate = () => {
-    const currentTime = audioRef.current.currentTime;
-    const duration = audioRef.current.duration;
-    if(duration) {
-      setProgress((currentTime / duration) * 100);
+    if (audioRef.current) {
+      const currentTime = audioRef.current.currentTime;
+      const duration = audioRef.current.duration;
+      if (duration) {
+        setProgress((currentTime / duration) * 100);
+      }
     }
   };
 

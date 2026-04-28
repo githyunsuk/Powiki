@@ -1,6 +1,11 @@
 import { Box, Typography } from "@mui/material";
 
-function SectionTitle({ label, color }) {
+interface SectionTitleProps {
+  label: string,
+  color: string,
+}
+
+function SectionTitle({ label, color }: SectionTitleProps) {
 
   return (
     <Typography variant="h6" fontWeight="800" sx={{ mb: 2, display: "flex", alignItems: "center", gap: 1 }}>

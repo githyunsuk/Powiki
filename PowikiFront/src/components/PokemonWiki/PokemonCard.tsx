@@ -3,8 +3,9 @@ import TypeBadge from "../common/TypeBadge";
 import { useNavigate } from "react-router-dom";
 import { getPokemonImageUrl } from "../../utils/pokemonHelper";
 import { usePokemonStore } from "../../store/pokemonStore";
+import { PokemonListData } from "../../types/Pokemon";
 
-function PokemonCard({ pokemon }) {
+function PokemonCard({ pokemon }: { pokemon: PokemonListData}) {
 
   const imageType = usePokemonStore((state) => state.imageType);
   const imageUrl = getPokemonImageUrl(pokemon.id, imageType);
@@ -57,7 +58,7 @@ function PokemonCard({ pokemon }) {
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "center", gap: 0.5 }}>
           {pokemon.types.map((type) => (
-            <TypeBadge type={type} />
+            <TypeBadge name={type.name} color={type.color} />
           ))}
         </Box>
       </CardContent>

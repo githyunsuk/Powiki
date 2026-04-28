@@ -1,7 +1,13 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
-import { LabelList, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from "recharts";
+import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from "recharts";
+import { PokemonDetailData } from "../../types/Pokemon";
 
-function BaseStatsChart({ stats, color }) {
+interface BaseStatsChartProps {
+  stats: PokemonDetailData["stats"]; 
+  color: string;
+}
+
+function BaseStatsChart({ stats, color }: BaseStatsChartProps) {
   const CHART_MAX = 150;
 
   const chartData = [
@@ -16,7 +22,7 @@ function BaseStatsChart({ stats, color }) {
     A_fixed: item.A > CHART_MAX ? CHART_MAX : item.A 
   }));
 
-const renderCustomTick = (props) => {
+const renderCustomTick = (props: any) => {
     const { payload, x, y, textAnchor } = props;
     
     let adjustedY = y;

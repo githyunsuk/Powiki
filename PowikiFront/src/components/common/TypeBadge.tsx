@@ -1,11 +1,15 @@
 import { Chip } from "@mui/material";
 
-function TypeBadge({type}) {
+interface TypeBadgeProps {
+  name: string,
+  color: string,
+}
+function TypeBadge({name, color}: TypeBadgeProps) {
  
   return (
     <Chip
-      key={type.typeName}
-      label={type.typeName}
+      key={name}
+      label={name}
       size="small"
       sx={{
         width: "60px",
@@ -13,7 +17,7 @@ function TypeBadge({type}) {
         fontSize: "0.75rem",
         fontWeight: "bold",
         color: "white",
-        backgroundColor: type.typeColor,
+        backgroundColor: color,
 
         border: "none",
         height: "24px",

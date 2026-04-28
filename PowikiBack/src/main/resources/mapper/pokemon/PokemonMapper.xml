@@ -106,10 +106,10 @@
         <result property="isMythical" column="is_mythical" />
 
         <collection property="types" ofType="com.example.powiki.domain.pokemon.model.response.PokemonListResponse$pokemonType">
-            <id property="typeId" column="type_id" />
+            <id property="id" column="type_id" />
             <result property="slot" column="slot" />
-            <result property="typeName" column="type_name" />
-            <result property="typeColor" column="type_color" />
+            <result property="name" column="type_name" />
+            <result property="color" column="type_color" />
         </collection>
     </resultMap>
 

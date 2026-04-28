@@ -2,12 +2,13 @@ import { Box, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import api from "../../api/axiosInstance";
 import { usePokemonStore } from "../../store/pokemonStore";
+import { PokemonType } from "../../types/Pokemon";
 
 function TypeFilter() {
 
   const selectedTypes = usePokemonStore((state) => state.selectedTypes);
   const handleType = usePokemonStore((state) => state.handleType);
-  const [pokemonTypes, setPokemonTypes] = useState([]);
+  const [pokemonTypes, setPokemonTypes] = useState<PokemonType[]>([]);
 
   useEffect(() => {
     const fetchTypes = async () => {

@@ -1,35 +1,30 @@
-import {
-  Box,
-  Paper,
-  Tab,
-  Tabs,
-} from "@mui/material";
+import { Box, Paper, Tab, Tabs } from "@mui/material";
 import PokemonList from "../components/PokemonWiki/PokemonList";
 import GenFilter from "../components/features/GenFilter";
 import TypeFilter from "../components/features/TypeFilter"; 
 import { usePokemonStore } from "../store/pokemonStore";
 import { useEffect } from "react";
 import Loading from "../components/common/Loading";
+import { useShallow } from "zustand/shallow";
 
 function PokemonWiki() {
 
-  const pokemonData = usePokemonStore((state) => state.pokemonData);
-  const fetchOnes = usePokemonStore((state) => state.fetchOnes);
-  const selectedTypes = usePokemonStore((state) => state.selectedTypes);
-  const formType = usePokemonStore((state) => state.formType);
-  const handleFormType = usePokemonStore((state) => state.handleFormType);
+  const { pokemonListData, fetchOnes, formType, handleFormType } = usePokemonStore(
+    useShallow((state) => ({
+      pokemonListData: state.pokemonListData,
+      fetchOnes: state.fetchOnes,
+      formType: state.formType,
+      handleFormType: state.handleFormType
+    }))
+  );
   const formTypeList = ["default", "mega", "legendary", "mythical"];
-
   const tabValue = formTypeList.indexOf(formType);
-  const clickTab = (event, newValue) => {
-    handleFormType(formTypeList[newValue]);
-  };
 
   useEffect(() => {
     fetchOnes();
   }, [fetchOnes])
 
-  if(!pokemonData || pokemonData.length == 0) {
+  if(!pokemonListData || pokemonListData.length == 0) {
     return <Loading />
   }
 
@@ -39,7 +34,7 @@ function PokemonWiki() {
         {/* 1. 상단 탭 */}
         <Tabs
           value={tabValue}
-          onChange={clickTab}
+          onChange={(_e, newValue) => handleFormType(formTypeList[newValue])}
           sx={{
             minHeight: "auto",
             "& .MuiTabs-indicator": {
@@ -71,7 +66,7 @@ function PokemonWiki() {
           <Box sx={{ p: { xs: 2, md: 3 }, pb: 0 }}>
             <GenFilter />
             <TypeFilter />
-            <PokemonList pokemonData={pokemonData} selectedTypes={selectedTypes} currentDex={tabValue} />
+            <PokemonList />
           </Box>
         </Paper>
       </Box>

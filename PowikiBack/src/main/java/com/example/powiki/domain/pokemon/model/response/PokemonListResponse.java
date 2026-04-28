@@ -19,10 +19,10 @@ public class PokemonListResponse {
 
     @Getter
     public static class pokemonType {
-        private Integer typeId;
+        private Integer id;
         private Integer slot;
-        private String typeName;
-        private String typeColor;
+        private String name;
+        private String color;
     }
 
 }

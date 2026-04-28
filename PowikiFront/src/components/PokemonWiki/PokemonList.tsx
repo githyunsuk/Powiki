@@ -2,21 +2,28 @@ import { Box, Grid, Typography } from "@mui/material";
 import PokemonCard from "./PokemonCard";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePokemonStore } from "../../store/pokemonStore";
+import { PokemonListData } from "../../types/Pokemon";
+import { useShallow } from "zustand/shallow";
 
-function PokemonList({ pokemonData }) {
+export default function PokemonList() {
   
-  const keyword = usePokemonStore((state) => state.keyword);
-  const selectedTypes = usePokemonStore((state) => state.selectedTypes);
-  const currentGen = usePokemonStore((state) => state.currentGen);
-  const formType = usePokemonStore((state) => state.formType);
+  const { pokemonListData, keyword, selectedTypes, currentGen, formType } = usePokemonStore(
+    useShallow((state) => ({
+      pokemonListData: state.pokemonListData,
+      keyword: state.keyword,
+      selectedTypes: state.selectedTypes,
+      currentGen: state.currentGen,
+      formType: state.formType
+    }))
+  );
 
   const [itemLimit, setItemLimit] = useState(20);
   const observerTarget = useRef(null);
 
   const filteredData = useMemo(() => {
-    if (!pokemonData) return [];
+    if (!pokemonListData) return [];
 
-    return pokemonData.filter((pokemon) => {
+    return pokemonListData.filter((pokemon : PokemonListData) => {
       // 세대 필터
       const matchesGen = currentGen === 0 || pokemon.generation === currentGen;
       // 키워드 필터
@@ -24,7 +31,7 @@ function PokemonList({ pokemonData }) {
       // 타입 필터
       const matchesType =
         selectedTypes.length === 0 ||
-        pokemon.types.some((t) => selectedTypes.includes(t.typeId));
+        pokemon.types.some((t) => selectedTypes.includes(t.id));
       // 폼(탭) 필터
       let matchesForm = null;
       if (formType === "default" || formType === "mega") {
@@ -37,7 +44,7 @@ function PokemonList({ pokemonData }) {
 
       return matchesGen && matchesKeyword && matchesType && matchesForm;
     });
-  }, [pokemonData, keyword, selectedTypes, currentGen, formType]);
+  }, [pokemonListData, keyword, selectedTypes, currentGen, formType]);
 
   useEffect(() => {
     setItemLimit((prev) => (prev !== 20 ? 20 : prev));
@@ -82,8 +89,8 @@ function PokemonList({ pokemonData }) {
 
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="stretch">
-      {displayData.map((pokemon) => (
-        <Grid item key={pokemon.id} xs={12} sm={6} md={4} lg={2.4}>
+      {displayData.map((pokemon : PokemonListData) => (
+        <Grid key={pokemon.id} size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
           <PokemonCard pokemon={pokemon} />
         </Grid>
       ))}
@@ -93,4 +100,4 @@ function PokemonList({ pokemonData }) {
   );
 }
 
-export default PokemonList;
+

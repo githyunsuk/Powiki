@@ -1,14 +1,19 @@
 import { Box, FormControlLabel, Switch, Typography } from "@mui/material";
 import SearchBar from "./SearchBar";
 import { usePokemonStore } from "../../store/pokemonStore";
+import { useShallow } from "zustand/shallow";
 
 function Header() {
 
-  const isPixel = usePokemonStore((state) => state.isPixel);
-  const togglePixel = usePokemonStore((state) => state.togglePixel);
-  const keyword = usePokemonStore((state) => state.keyword);
-  const handleKeyword = usePokemonStore((state) => state.handleKeyword);
-  
+  const{ isPixel, togglePixel, keyword, handleKeyword } = usePokemonStore(
+    useShallow((state) => ({
+      isPixel: state.isPixel,
+      togglePixel: state.togglePixel,
+      keyword: state.keyword,
+      handleKeyword: state.handleKeyword
+    }))
+  );
+
   return (
     <>
       <Typography

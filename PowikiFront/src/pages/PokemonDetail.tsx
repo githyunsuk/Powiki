@@ -11,9 +11,10 @@ import { useEffect, useState } from "react";
 import api from "../api/axiosInstance";
 import Loading from "../components/common/Loading";
 import NavButton from "../components/common/NavButton";
+import { PokemonDetailData } from "../types/Pokemon";
 
 function PokemonDetail() {
-  const [pokemon, setPokemon] = useState(null);
+  const [pokemon, setPokemon] = useState<PokemonDetailData>();
   const { pokemonId } = useParams();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function PokemonDetail() {
     return <Loading />
   }
 
-  const ACCENT_COLOR = pokemon.types.find(type => type.slot === 1).color;
+  const ACCENT_COLOR = pokemon.types.find(type => type.slot === 1)?.color || "#718096";
   const pokemonImage = getPokemonImageUrl(pokemon.id, "ARTWORK");
   const gender = pokemon.gender.genderless ? "무성" : `수컷: ${pokemon.gender.male}%, 암컷: ${pokemon.gender.female}%`;
   
@@ -105,7 +106,7 @@ function PokemonDetail() {
           <InfoColumn label="분류" value={pokemon.category} color={ACCENT_COLOR} />
           <InfoColumn label="타입" color={ACCENT_COLOR}>
             <Stack spacing={0.5} alignItems="center">
-              {pokemon.types.map(type => <TypeBadge key={type.id} type={{ typeName: type.name, typeColor: type.color }} />)}
+              {pokemon.types.map(type => <TypeBadge key={type.id} name={type.name} color={type.color} />)}
             </Stack>
           </InfoColumn>
           <InfoColumn label="신장" value={`${pokemon.height / 10}m`} color={ACCENT_COLOR} />
@@ -139,7 +140,7 @@ function PokemonDetail() {
               <InfoRow key={multiplier} label={`${multiplier}배`} color={ACCENT_COLOR} isLast={idx === array.length - 1}>
                 <Stack direction="row" sx={{ gap: 1.0 }} flexWrap="wrap">
                   {types.map(type => (
-                    <TypeBadge key={type.id} type={{ typeName: type.name, typeColor: type.color }} />
+                    <TypeBadge key={type.id} name={type.name} color={type.color} />
                   ))}
                 </Stack>
               </InfoRow>

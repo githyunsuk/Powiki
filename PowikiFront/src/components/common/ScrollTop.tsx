@@ -17,7 +17,6 @@ function ScrollTop() {
         role="presentation"
         sx={{
           position: "fixed",
-          // [수정] 화면 끝에서 살짝 더 띄워서 답답함을 해소 (20/30 -> 32/40)
           bottom: { xs: 32, md: 40 },
           right: { xs: 32, md: 40 },
           zIndex: 1000,
@@ -30,10 +29,8 @@ function ScrollTop() {
         <KeyboardArrowUpIcon
           sx={{
             color: "#333",
-            // [수정] 2.5rem -> 2rem으로 축소 (공 크기에 맞춤)
             fontSize: "2rem",
             filter: "drop-shadow(2px 2px 0px white)",
-            // [수정] 공이 작아졌으므로 마진도 살짝 조정
             mb: -0.8,
             zIndex: 11,
             animation: "bounce 2s infinite",
@@ -47,11 +44,9 @@ function ScrollTop() {
         <Fab
           onClick={handleClick}
           sx={{
-            // [수정] 60px -> 48px로 축소 (가장 큰 변화!)
             width: 48,
             height: 48,
             borderRadius: "50%",
-            // [수정] 선 굵기도 4px -> 3px로 조정해서 투박함 제거
             border: "3px solid #333",
             position: "relative",
             background: "linear-gradient(to bottom, #FF0000 50%, #FFFFFF 50%)",
@@ -68,7 +63,6 @@ function ScrollTop() {
               top: "50%",
               left: 0,
               width: "100%",
-              // [수정] 선 굵기 4px -> 3px
               height: "3px",
               backgroundColor: "#333",
               transform: "translateY(-50%)",
@@ -80,11 +74,9 @@ function ScrollTop() {
               position: "absolute",
               top: "50%",
               left: "50%",
-              // [수정] 전체 크기에 맞춰 중앙 버튼도 10px -> 8px로 축소
               width: "8px",
               height: "8px",
               backgroundColor: "#fff",
-              // [수정] 테두리 4px -> 3px
               border: "3px solid #333",
               borderRadius: "50%",
               transform: "translate(-50%, -50%)",

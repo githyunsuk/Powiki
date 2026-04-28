@@ -3,7 +3,16 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { IconButton, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function NavButton({ pokemon, color, direction }) {
+interface NavButtonProps {
+  pokemon: {
+    id: number,
+    name: string,
+  },
+  color: string,
+  direction: string
+}
+
+function NavButton({ pokemon, color, direction }: NavButtonProps) {
   
   const navigate = useNavigate();
   const isLeft = direction === 'left';
