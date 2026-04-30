@@ -1,5 +1,6 @@
 package com.example.powiki.domain.pokemon.service;
 
+import com.example.powiki.domain.pokemon.model.response.PokemonDetailListResponse;
 import com.example.powiki.domain.pokemon.model.response.PokemonDetailResponse;
 import com.example.powiki.domain.pokemon.model.response.PokemonListResponse;
 
@@ -9,5 +10,5 @@ public interface PokemonService {
 
     public List<PokemonListResponse> retrievePokemonList();
 
-    public PokemonDetailResponse retrievePokemonDetail(Long pokemonId);
+    public PokemonDetailListResponse retrievePokemonDetail(Long speciesId);
 }

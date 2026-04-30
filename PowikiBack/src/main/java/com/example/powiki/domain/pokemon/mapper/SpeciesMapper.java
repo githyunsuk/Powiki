@@ -1,8 +1,10 @@
 package com.example.powiki.domain.pokemon.mapper;
 
+import com.example.powiki.domain.pokemon.model.PokemonSpeciesInfoDTO;
 import com.example.powiki.domain.pokemon.model.entity.PokemonDescription;
 import com.example.powiki.domain.pokemon.model.entity.PokemonSpecies;
 import com.example.powiki.domain.pokemon.model.entity.SpeciesEggMap;
+import com.example.powiki.domain.pokemon.model.response.PokemonDetailListResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +20,8 @@ public interface SpeciesMapper {
     void insertPokemonDescription(PokemonDescription pokemonDescription);
 
     void insertPokemonEggGroup(SpeciesEggMap speciesEgg);
+
+    PokemonSpeciesInfoDTO selectPokemonSpeciesInfo(Long speciesId);
 
     List<String> selectPokemonEggGroupNames(Long pokemonSpeciesId);
 

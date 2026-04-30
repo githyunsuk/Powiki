@@ -140,21 +140,33 @@
             p.pokemon_species_id, p.id, ptm.slot
     </select>
 
-    <!-- 포켓몬 기본정보 -->
+    <!-- 해당 종의 모든 pokemon Id 가져오기-->
+    <select id="selectIdBySpeciesId" resultType="long">
+        SELECT
+            id
+        FROM
+            pokemon
+        WHERE
+            pokemon_species_id = #{speciesId}
+        AND
+            is_active = 'Y'
+        ORDER BY
+            id ASC
+    </select>
+
+    <!-- 포켓몬 기본 정보 -->
     <select id="selectPokemonBasicInfo" resultType="PokemonBasicInfoDTO" parameterType="Long">
         SELECT
             p.id,
-            p.pokemon_species_id,
             p.name,
             p.hp, p.attack, p.defense, p.special_attack, p.special_defense, p.speed,
             p.height,
             p.weight,
-            ps.category,
-            ps.gender_rate
+            p.form_group,
+            p.form_type,
+            p.form_name
         FROM
             pokemon p
-        JOIN
-            pokemon_species ps ON p.pokemon_species_id = ps.id
         WHERE
             p.id = #{id}
         AND

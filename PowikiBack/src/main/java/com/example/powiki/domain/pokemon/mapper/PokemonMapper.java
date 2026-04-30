@@ -35,4 +35,6 @@ public interface PokemonMapper {
     PokemonNavInfoDTO selectPrevPokemon(Long currentId);
 
     PokemonNavInfoDTO selectNextPokemon(Long currentId);
+
+    List<Long> selectIdBySpeciesId(Long speciesId);
 }

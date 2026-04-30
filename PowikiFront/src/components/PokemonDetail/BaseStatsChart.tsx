@@ -1,9 +1,9 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from "recharts";
-import { PokemonDetailData } from "../../types/Pokemon";
+import { PokemonFormData } from "../../types/Pokemon";
 
 interface BaseStatsChartProps {
-  stats: PokemonDetailData["stats"]; 
+  stats: PokemonFormData["stats"]; 
   color: string;
 }
 
@@ -11,11 +11,11 @@ function BaseStatsChart({ stats, color }: BaseStatsChartProps) {
   const CHART_MAX = 150;
 
   const chartData = [
-    { subject: "HP", A: stats.hp },
+    { subject: "특수방어", A: stats.specialDefense },
     { subject: "공격", A: stats.attack },
     { subject: "방어", A: stats.defense },
     { subject: "특수공격", A: stats.specialAttack }, 
-    { subject: "특수방어", A: stats.specialDefense },
+    { subject: "HP", A: stats.hp },
     { subject: "스피드", A: stats.speed },
   ].map(item => ({
     ...item,

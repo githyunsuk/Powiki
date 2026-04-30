@@ -6,7 +6,6 @@ import lombok.Getter;
 public class PokemonBasicInfoDTO {
 
     private Long id;
-    private Long pokemonSpeciesId;
     private String name;
     private Integer hp;
     private Integer attack;
@@ -16,6 +15,9 @@ public class PokemonBasicInfoDTO {
     private Integer speed;
     private Integer height;
     private Integer weight;
-    private String category;
-    private Integer genderRate;
+
+    private String formGroup;
+    private String formType;
+    private String formName;
+
 }

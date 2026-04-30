@@ -77,7 +77,7 @@ const tabStyle = {
   textTransform: "none",
   fontWeight: "bold",
   fontSize: "0.9rem",
-  minWidth: "auto",
+  minWidth: "100px",
   padding: "10px 24px",
   borderRadius: "12px 12px 0 0",
   marginRight: "5px",

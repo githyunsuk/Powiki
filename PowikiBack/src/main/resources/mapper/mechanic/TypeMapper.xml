@@ -37,6 +37,7 @@
         )
     </insert>
 
+    <!-- 모든 타입 조회 -->
     <select id="retrieveAllType" resultType="com.example.powiki.domain.mechanic.model.response.TypeSummaryResponse">
         SELECT
              id

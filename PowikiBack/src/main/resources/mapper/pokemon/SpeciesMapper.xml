@@ -27,6 +27,19 @@
         ON DUPLICATE KEY UPDATE id = id
     </insert>
 
+    <!-- 포켓몬 종 정보 -->
+    <select id="selectPokemonSpeciesInfo" resultType="PokemonSpeciesInfoDTO" parameterType="Long">
+        SELECT
+            id AS species_id
+            ,name
+            ,gender_rate
+            ,category
+        FROM
+            pokemon_species
+        WHERE
+            id = #{speciesId}
+    </select>
+
     <!-- 포켓몬 알 그룹 정보 -->
     <select id="selectPokemonEggGroupNames" resultType="String" parameterType="Long">
         SELECT
