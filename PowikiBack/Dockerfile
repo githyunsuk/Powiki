@@ -6,7 +6,7 @@ COPY . .
 RUN chmod +x ./gradlew && ./gradlew clean build -x test
 
 # --- 2단계: 실행 스테이지 ---
-FROM openjdk:17-jdk-slim
+FROM amazoncorretto:17-al2023-headless
 WORKDIR /app
 # 빌드된 JAR만 복사
 COPY --from=builder /app/build/libs/*.jar app.jar
