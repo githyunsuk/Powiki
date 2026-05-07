@@ -39,7 +39,7 @@ function Header() {
               sx={{ width: 40, height: 40, filter: "drop-shadow(2px 2px 0px rgba(0,0,0,0.2))" }}
             />
             <Typography variant="h4" sx={{ fontWeight: 900, color: "#fff", textShadow: "2px 2px 0px #333" }}>
-              Pokémon Wiki_배포테스트
+              Pokémon Wiki_배포테스트2
             </Typography>
           </Box>
 
