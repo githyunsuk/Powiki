@@ -14,16 +14,15 @@ function Header() {
 
   return (
     <AppBar 
-      position="static" // 스크롤 따라오지 않음
+      position="static" 
       elevation={0} 
       sx={{ 
         backgroundColor: "#f44336", 
         borderBottom: "4px solid #333", 
         mb: 6,
         width: "100%",
-        // 중요: absolute 자식의 기준점이 되도록 설정
         position: "relative", 
-        overflow: "visible" // 장식이 밖으로 튀어나와야 하므로 필수
+        overflow: "visible" 
       }}
     >
       <Container maxWidth="lg">
@@ -40,7 +39,7 @@ function Header() {
               sx={{ width: 40, height: 40, filter: "drop-shadow(2px 2px 0px rgba(0,0,0,0.2))" }}
             />
             <Typography variant="h4" sx={{ fontWeight: 900, color: "#fff", textShadow: "2px 2px 0px #333" }}>
-              Pokémon Wiki
+              Pokémon Wiki_배포테스트
             </Typography>
           </Box>
 
@@ -74,7 +73,6 @@ function Header() {
       <Box 
         sx={{ 
           position: "absolute", 
-          // bottom: 0으로 설정한 뒤 마진이나 변형으로 정확히 선 위에 올립니다.
           bottom: "-19px", 
           left: "50%", 
           transform: "translateX(-50%)",
@@ -84,7 +82,6 @@ function Header() {
           border: "4px solid #333",
           borderRadius: "50%",
           zIndex: 10,
-          // 박스 쉐도우를 추가하면 경계선에 더 자연스럽게 붙어 보입니다.
           boxShadow: "0 2px 0 rgba(0,0,0,0.1)",
           "&::after": {
             content: '""',

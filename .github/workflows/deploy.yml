@@ -1,0 +1,60 @@
+name: Powiki CI/CD (Multi-stage Docker)
+
+on:
+  push:
+    branches: [ "main", "develop" ] # 이 브랜치들에 push 되면 실행
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 1. 도커 허브 로그인
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 2. 백엔드 이미지 빌드 및 푸시 (Dockerfile 내에서 Gradle 빌드 포함됨)
+      - name: Backend Image Build & Push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./PowikiBack
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/powiki-back:latest
+
+      # 3. 프론트엔드 이미지 빌드 및 푸시 (Dockerfile 내에서 Node 빌드 포함됨)
+      - name: Frontend Image Build & Push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./PowikiFront
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/powiki-front:latest
+
+  deploy:
+    needs: build-and-push # 빌드가 성공해야 배포 시작
+    runs-on: ubuntu-latest
+    steps:
+      # 4. OCI 서버에 접속해서 새 이미지로 교체
+      - name: Deploy to OCI via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.OCI_HOST }}
+          username: ${{ secrets.OCI_USER }}
+          key: ${{ secrets.OCI_SSH_KEY }}
+          script: |
+            # 서버의 프로젝트 폴더로 이동 (폴더가 없다면 미리 만들어둬야 함)
+            mkdir -p ~/app
+            cd ~/app
+            
+            # 새 이미지 가져오기
+            sudo docker compose pull
+            
+            # 컨테이너 재시작 (중단 없이 교체)
+            sudo docker compose up -d
+            
+            # 안 쓰는 옛날 이미지 삭제 (서버 용량 관리)
+            sudo docker image prune -f
