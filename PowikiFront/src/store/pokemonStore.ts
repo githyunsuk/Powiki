@@ -47,7 +47,7 @@ export const usePokemonStore = create<PokemonState>((set, get) => ({
     if (get().hasFetched) return;
     
     try {
-      const response = await api.get(`/api/pokemons`);
+      const response = await api.get(`/pokemons`);
       set({ pokemonListData: response.data.data, hasFetched: true });
     } catch (error) {
       console.error("포켓몬 리스트 불러오기 실패:", error);

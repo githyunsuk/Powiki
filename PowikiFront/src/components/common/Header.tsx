@@ -7,9 +7,9 @@ function Header() {
 
   const menuItems = [
     { label: "도감", path: "/" },
-    { label: "타입 상성", path: "/type-chart" },
-    { label: "도구", path: "/items" },
-    { label: "기술", path: "/moves" },
+    { label: "기술", path: "/" },
+    { label: "도구", path: "/" },
+    { label: "기타", path: "/" },
   ];
 
   return (

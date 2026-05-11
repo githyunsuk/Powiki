@@ -32,7 +32,7 @@ export default function PokemonDetail() {
     const getPokemonData = async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/api/pokemon/${pokemonId}`);
+        const response = await api.get(`/pokemon/${pokemonId}`);
         const data = response.data.data;
         setPokemon(data);
         

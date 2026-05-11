@@ -2,7 +2,7 @@ name: Powiki CI/CD (Multi-stage Docker)
 
 on:
   push:
-    branches: [ "main", "develop" ] # 이 브랜치들에 push 되면 실행
+    branches: [ "main" ] # 이 브랜치들에 push 되면 실행
 
 jobs:
   build-and-push:

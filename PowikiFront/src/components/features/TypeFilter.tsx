@@ -13,7 +13,7 @@ function TypeFilter() {
   useEffect(() => {
     const fetchTypes = async () => {
       try {
-        const response = await api.get("/api/types");
+        const response = await api.get("/types");
         setPokemonTypes(response.data.data);
       } catch (error) {
         console.error("타입 데이터 불러오기 실패:", error);
