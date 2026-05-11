@@ -5,7 +5,7 @@ const RAW_HOST = import.meta.env.VITE_API_URL || "";
 const HOST = RAW_HOST.replace(/\/+$/, ""); 
 
 // 2. baseURL
-const BASE_URL = HOST + "/api";
+const BASE_URL = HOST;
 
 const api = axios.create({
   baseURL: BASE_URL,
