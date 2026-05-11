@@ -6,6 +6,12 @@ services:
     # 도커 허브 창고에서 가져올 이미지 이름
     image: ${DOCKER_USERNAME}/powiki-back:latest
     container_name: powiki-back
+    environment:
+      - db.url=${DB_URL}
+      - db.id=${DB_ID}
+      - db.password=${DB_PASSWORD}
+      - cors.allowed.host=${CORS_ALLOWED_HOST}
+      - cosr.allowed.port=${CORS_ALLOWED_PORT}
     ports:
       - "8080:8080"  # [외부포트]:[컨테이너내부포트]
     restart: always  # 서버가 꺼졌다 켜지면 자동으로 다시 실행
@@ -15,7 +21,7 @@ services:
     image: ${DOCKER_USERNAME}/powiki-front:latest
     container_name: powiki-front
     ports:
-      - "80:80"      # 사용자가 80번(HTTP)으로 들어오면 연결$
+      - "80:80"      # 사용자가 80번(HTTP)으로 들어오면 연결
     restart: always
     depends_on:
       - powiki-back  # 백엔드가 먼저 실행된 후 프론트가 실행되도록 설정
