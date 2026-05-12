@@ -12,8 +12,10 @@ services:
       - db.password=${DB_PASSWORD}
       - cors.allowed.host=${CORS_ALLOWED_HOST}
       - cosr.allowed.port=${CORS_ALLOWED_PORT}
-    ports:
-      - "8080:8080"  # [외부포트]:[컨테이너내부포트]
+    # ports:
+      # - "8080:8080"  # [외부포트]:[컨테이너내부포트]
+    expose:
+      - "8080"
     restart: always  # 서버가 꺼졌다 켜지면 자동으로 다시 실행
 
   # 2. 프론트엔드 컨테이너 설정
