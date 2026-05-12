@@ -3,6 +3,7 @@ import App from "../App";
 import PokemonWiki from "../pages/PokemonWiki";
 import PokemonLayout from "../layouts/PokemonLayout";
 import PokemonDetail from "../pages/PokemonDetail";
+import PokemonQuiz from "../pages/PokemonQuiz";
 
 const routes: RouteObject[] = [
   {
@@ -24,6 +25,10 @@ const routes: RouteObject[] = [
             path: "pokedex/:pokemonId",
             element: <PokemonDetail />,
           },
+          {
+            path: "quiz",
+            element: <PokemonQuiz />,
+          }
         ],
       },
     ],

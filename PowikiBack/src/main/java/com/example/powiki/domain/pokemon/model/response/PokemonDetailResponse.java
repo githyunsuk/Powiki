@@ -63,7 +63,7 @@ public class PokemonDetailResponse {
     @Getter
     public static class Gender {
         private final double male;
-        private final double female;
+        private final double female;sss
         private final boolean isGenderless;
 
         public Gender(Integer rate) {
