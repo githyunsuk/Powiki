@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class PokemonNavInfoDTO {
 
-    private Integer id;
+    private Long id;
     private String name;
 }

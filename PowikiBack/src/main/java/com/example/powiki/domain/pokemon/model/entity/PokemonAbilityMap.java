@@ -15,9 +15,10 @@ import java.time.LocalDateTime;
 @ToString
 public class PokemonAbilityMap {
 
-    private Integer id;
-    private Integer pokemonId;
-    private Integer abilityId;
+    private Long id;
+    private Long pokemonId;
+    private Long abilityId;
+    
     private String pokemonName;
     private String abilityName;
     private Integer slot;

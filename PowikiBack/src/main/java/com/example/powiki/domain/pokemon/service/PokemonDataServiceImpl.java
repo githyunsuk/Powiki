@@ -87,7 +87,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
             Pokemon.PokemonBuilder pokemonBuilder = Pokemon.builder();
 
             // 포켓몬 ID
-            Integer id = pokemonResponse.get("id").asInt();
+            Long id = pokemonResponse.get("id").asLong();
 
             // Pokemon Sprite 저장
             String spriteShinyUrl = pokemonResponse.get("sprites").get("front_shiny").asText();
@@ -102,7 +102,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
                 char isHidden = node.get("is_hidden").asBoolean() ? 'Y' : 'N';
                 Integer slot = node.get("slot").asInt();
                 String[] urlParts = node.get("ability").get("url").asText().split("/");
-                Integer abilityId = Integer.parseInt(urlParts[urlParts.length - 1]);
+                Long abilityId = Long.parseLong(urlParts[urlParts.length - 1]);
 
                 PokemonAbilityMap pokemonAbility = PokemonAbilityMap.builder()
                         .abilityId(abilityId).slot(slot).pokemonId(id).isHidden(isHidden).build();
@@ -114,7 +114,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
             for(JsonNode node : pokemonResponse.get("types")) {
                 Integer slot = node.get("slot").asInt();
                 String[] urlParts = node.get("type").get("url").asText().split("/");
-                Integer typeId = Integer.parseInt(urlParts[urlParts.length - 1]);
+                Long typeId = Long.parseLong(urlParts[urlParts.length - 1]);
 
                 PokemonTypeMap pokemonType = PokemonTypeMap.builder().pokemonId(id).typeId(typeId).slot(slot).build();
                 pokemonMapper.insertPokemonType(pokemonType);
@@ -126,7 +126,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
                     .retrieve()
                     .body(JsonNode.class);
 
-            Integer speciesId = speciesResponse.get("id").asInt();
+            Long speciesId = speciesResponse.get("id").asLong();
             Integer speciesOrder = speciesResponse.get("order").asInt();
             Integer genderRate = speciesResponse.get("gender_rate").asInt();
 
@@ -163,7 +163,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
                 if("ko".equals(descriptionNode.get("language").get("name").asText())) {
                     String description = descriptionNode.get("flavor_text").asText();
                     String[] versionParts = descriptionNode.get("version").get("url").asText().split("/");
-                    Integer versionId = Integer.parseInt(versionParts[versionParts.length - 1]);
+                    Long versionId = Long.parseLong(versionParts[versionParts.length - 1]);
 
                     PokemonDescription pokemonDescription = PokemonDescription.builder()
                             .versionId(versionId).description(description).pokemonSpeciesId(speciesId).build();
@@ -175,7 +175,7 @@ public class PokemonDataServiceImpl implements PokemonDataService {
             // Pokemon Egg group 저장
             for(JsonNode eggNode : speciesResponse.get("egg_groups")) {
                 String[] eggParts = eggNode.get("url").asText().split("/");
-                Integer eggGroupId = Integer.parseInt(eggParts[eggParts.length - 1]);
+                Long eggGroupId = Long.parseLong(eggParts[eggParts.length - 1]);
 
                 SpeciesEggMap eggGroup = SpeciesEggMap.builder().eggGroupId(eggGroupId).pokemonSpeciesId(speciesId).build();
                 speciesMapper.insertPokemonEggGroup(eggGroup);

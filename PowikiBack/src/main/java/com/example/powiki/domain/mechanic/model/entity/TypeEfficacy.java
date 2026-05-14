@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @ToString
 public class TypeEfficacy {
 
-    private Integer damageTypeId;
-    private Integer targetTypeId;
+    private Long damageTypeId;
+    private Long targetTypeId;
     private double damageFactor;
 
     private char isActive;

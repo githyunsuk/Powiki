@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 @ToString
 public class Pokemon {
 
-    private Integer id;
-    private Integer pokemonSpeciesId;
-    private Integer sortOrder;
+    private Long id;
+    private Long pokemonSpeciesId;
 
+    private Integer sortOrder;
     private String name;
     private String mainArtworkUrl;
     private String mainSpriteUrl;

@@ -8,8 +8,9 @@ import java.util.List;
 @Getter
 public class PokemonListResponse {
 
-    private Integer id;
-    private Integer pokemonSpeciesId;
+    private Long id;
+    private Long pokemonSpeciesId;
+
     private String name;
     private Integer generation;
     private String formType;
@@ -20,7 +21,7 @@ public class PokemonListResponse {
 
     @Getter
     public static class pokemonType {
-        private Integer id;
+        private Long id;
         private Integer slot;
         private String name;
         private String color;

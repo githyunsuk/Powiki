@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @ToString
 public class Ability {
 
-    private Integer id;
+    private Long id;
+
     private String name;
     private String description;
     private Integer generation;

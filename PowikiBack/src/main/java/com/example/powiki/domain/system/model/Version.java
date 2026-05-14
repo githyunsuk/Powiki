@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @ToString
 public class Version {
 
-    private Integer id;
+    private Long id;
+    
     private String name;
     private String region;
     private Integer generation;

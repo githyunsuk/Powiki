@@ -24,15 +24,9 @@ public class MechanicDataController {
     public ResponseEntity<ApiResponse<Object>> ingestAbility() {
         log.info("### 특성 데이터 수집 시작");
 
-        try {
-            mechanicDataService.processAbilityIngestion();
+        mechanicDataService.processAbilityIngestion();
 
-            return ApiResponse.success(ApiStatus.OK);
-        } catch (Exception e) {
-            log.error("### 에러", e);
-
-            return ApiResponse.fail(ApiStatus.INTERNAL_SERVER_ERROR);
-        }
+        return ApiResponse.success(ApiStatus.OK);
     }
 
     /**
@@ -42,14 +36,20 @@ public class MechanicDataController {
     public ResponseEntity<ApiResponse<Object>> ingestTypeData() {
         log.info("### 타입 데이터 수집 시작");
 
-        try {
-            mechanicDataService.processTypeIngestion();
+        mechanicDataService.processTypeIngestion();
 
-            return ApiResponse.success(ApiStatus.OK);
-        } catch (Exception e) {
-            log.error("### 에러", e);
+        return ApiResponse.success(ApiStatus.OK);
+    }
 
-            return ApiResponse.fail(ApiStatus.INTERNAL_SERVER_ERROR);
-        }
+    /**
+     * 기술 부가 데이터 수집
+     */
+    @GetMapping("/api/move-type/ingestion")
+    public ResponseEntity<ApiResponse<Object>> ingestMoveTypeData() {
+        log.info("### 기술 부가 데이터 수집 시작");
+
+        mechanicDataService.processMoveTypeIngestion();
+
+        return ApiResponse.success(ApiStatus.OK);
     }
 }

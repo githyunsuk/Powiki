@@ -47,7 +47,7 @@ public class MechanicDataServiceImpl implements MechanicDataService {
                     .retrieve()
                     .body(JsonNode.class);
 
-            Integer id = response.get("id").asInt();
+            Long id = response.get("id").asLong();
 
             String name = null;
             JsonNode names = response.get("names");
@@ -80,6 +80,11 @@ public class MechanicDataServiceImpl implements MechanicDataService {
         }
     }
 
+    @Override
+    public void processMoveTypeIngestion() {
+
+    }
+
     /**
      *  타입 데이터 수집
      */
@@ -105,7 +110,7 @@ public class MechanicDataServiceImpl implements MechanicDataService {
                     .body(JsonNode.class);
 
             // id
-            Integer id = response.get("id").asInt();
+            Long id = response.get("id").asLong();
 
             //generation
             String[] generationUrl = response.get("generation").get("url").asText().split("/");
@@ -143,11 +148,11 @@ public class MechanicDataServiceImpl implements MechanicDataService {
     /**
      * 타입 상성 저장
      */
-    private void processTypeEfficacy(Integer typeId, JsonNode relationsNode, double damageFactor, boolean isFrom) {
+    private void processTypeEfficacy(Long typeId, JsonNode relationsNode, double damageFactor, boolean isFrom) {
 
         for(JsonNode node : relationsNode) {
             String[] urlParts = node.get("url").asText().split("/");
-            Integer otherTypeId = Integer.parseInt(urlParts[urlParts.length-1]);
+            Long otherTypeId = Long.parseLong(urlParts[urlParts.length-1]);
 
             TypeEfficacy typeEfficacy;
             if(isFrom) {

@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TypeSummaryResponse {
 
-    private Integer id;
+    private Long id;
+
     private String color;
     private String name;
     private String sprite;

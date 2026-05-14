@@ -36,7 +36,7 @@ public class SystemDataServiceImpl implements SystemDataService {
                     .body(JsonNode.class);
 
             // id 가져오기
-            Integer id = data.get("id").asInt();
+            Long id = data.get("id").asLong();
 
             // 버전 이름 가져오기
             String name = null;

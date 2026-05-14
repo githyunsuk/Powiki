@@ -15,9 +15,10 @@ import java.time.LocalDateTime;
 @ToString
 public class SpeciesEggMap {
 
-    private Integer id;
-    private Integer eggGroupId;
-    private Integer pokemonSpeciesId;
+    private Long id;
+    private Long eggGroupId;
+    private Long pokemonSpeciesId;
+
     private String eggGroupName;
     private String pokemonSpeciesName;
 

@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @ToString
 public class Type {
 
-    private Integer id;
+    private Long id;
+
     private Integer generation;
     private String name;
     private String sprite;

@@ -5,4 +5,6 @@ public interface MechanicDataService {
     public void processTypeIngestion();
 
     public void processAbilityIngestion();
+
+    public void processMoveTypeIngestion();
 }

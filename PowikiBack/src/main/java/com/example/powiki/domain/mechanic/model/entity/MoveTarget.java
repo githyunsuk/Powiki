@@ -1,10 +1,9 @@
-package com.example.powiki.domain.pokemon.model.entity;
+package com.example.powiki.domain.mechanic.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -12,16 +11,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
-public class PokemonTypeMap {
+public class MoveTarget {
 
     private Long id;
-    private Long pokemonId;
-    private Long typeId;
 
-    private String pokemonName;
-    private String typeName;
-    private Integer slot;
+    private String code;
+    private String name;
+    private String description;
 
     private char isActive;
     private LocalDateTime createdAt;

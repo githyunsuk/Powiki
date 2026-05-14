@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @ToString
 public class PokemonSpecies {
 
-    private Integer id;
+    private Long id;
+
     private String name;
     private Integer sortOrder;
     private Integer genderRate;

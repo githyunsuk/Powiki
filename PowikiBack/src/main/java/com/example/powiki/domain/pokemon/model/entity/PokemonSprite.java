@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @ToString
 public class PokemonSprite {
 
-    private Integer id;
-    private Integer pokemonId;
+    private Long id;
+    private Long pokemonId;
     private String spriteShinyUrl;
     private String artworkShinyUrl;
 
