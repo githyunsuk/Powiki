@@ -7,4 +7,6 @@ public interface MechanicDataService {
     public void processAbilityIngestion();
 
     public void processMoveTypeIngestion();
+
+    public void processMoveIngestion();
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.powiki.domain.mechanic.mapper.MoveMapper">
+
+    <insert id="insertMoveAilment">
+        INSERT INTO move_ailment
+        (
+            id,
+            code
+        )
+        VALUES
+        (
+            #{id},
+            #{code}
+        )
+    </insert>
+
+    <insert id="insertMoveCategory">
+        INSERT INTO move_category
+        (
+            id,
+            code
+        )
+        VALUES
+        (
+            #{id},
+            #{code}
+        )
+    </insert>
+
+    <insert id="insertMoveTarget">
+        INSERT INTO move_target
+        (
+            id,
+            code
+        )
+        VALUES
+        (
+            #{id},
+            #{code}
+        )
+    </insert>
+
+    <insert id="insertMove">
+        INSERT INTO move (
+            id,
+            type_id,
+            target_id,
+            class_id,
+            category_id,
+            ailment_id,
+            name,
+            description,
+            power,
+            pp,
+            accuracy,
+            priority,
+            effect_chance,
+            ailment_chance,
+            crit_rate,
+            drain,
+            flinch_chance,
+            healing,
+            max_hits,
+            min_hits,
+            max_turns,
+            min_turns,
+            stat_chance,
+            generation
+        ) VALUES (
+            #{id},
+            #{typeId},
+            #{targetId},
+            #{classId},
+            #{categoryId},
+            #{ailmentId},
+            #{name},
+            #{description},
+            #{power},
+            #{pp},
+            #{accuracy},
+            #{priority},
+            #{effectChance},
+            #{ailmentChance},
+            #{critRate},
+            #{drain},
+            #{flinchChance},
+            #{healing},
+            #{maxHits},
+            #{minHits},
+            #{maxTurns},
+            #{minTurns},
+            #{statChance},
+            #{generation}
+        )
+        ON DUPLICATE KEY UPDATE
+        pp = VALUES(pp),
+        priority = VALUES(priority)
+    </insert>
+
+    <insert id="insertMoveStatChange">
+        INSERT INTO move_stat_change
+        (
+            move_id,
+            stat,
+            `change`
+        )
+        VALUES
+        (
+            #{moveId},
+            #{stat},
+            #{change}
+        )
+    </insert>
+
+</mapper>

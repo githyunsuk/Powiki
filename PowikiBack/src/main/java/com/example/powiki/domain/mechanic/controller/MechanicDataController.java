@@ -52,4 +52,16 @@ public class MechanicDataController {
 
         return ApiResponse.success(ApiStatus.OK);
     }
+
+    /**
+     * 기술 데이터 수집
+     */
+    @GetMapping("/api/move/ingestion")
+    public ResponseEntity<ApiResponse<Object>> ingestMoveData() {
+        log.info("### 기술 데이터 수집 시작");
+
+        mechanicDataService.processMoveIngestion();
+
+        return ApiResponse.success(ApiStatus.OK);
+    }
 }

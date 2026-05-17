@@ -36,7 +36,7 @@ public class Move {
     private Integer minHits;
     private Integer maxTurns;
     private Integer minTurns;
-    private Integer stateChance;
+    private Integer statChance;
     private Integer generation;
 
     private char isActive;

@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MoveStatCharge {
+public class MoveStatChange {
 
     private Long id;
     private Long moveId;
 
     private StatType stat;
-    private Integer charge;
+    private Integer change;
 
     private char isActive;
     private LocalDateTime createdAt;
