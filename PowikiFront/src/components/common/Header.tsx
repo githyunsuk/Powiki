@@ -7,7 +7,7 @@ function Header() {
 
   const menuItems = [
     { label: "도감", path: "/" },
-    { label: "기술", path: "/" },
+    { label: "기술", path: "/move" },
     { label: "도구", path: "/" },
     { label: "기타", path: "/quiz" },
   ];
